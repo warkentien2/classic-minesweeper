@@ -21,6 +21,6 @@ const DigitContainer = styled.div<DigitProps>`
   transform-origin: 0 0;
 `;
 
-export const Digit = ({ value = "dash" }: DigitProps): ReactElement => {
+export const Digit = ({ value = "0" }: DigitProps): ReactElement => {
   return <DigitContainer value={value} />;
 };
