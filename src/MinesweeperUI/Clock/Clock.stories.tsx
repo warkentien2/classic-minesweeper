@@ -4,7 +4,7 @@ import { Clock } from "./Clock";
 import type { ClockProps } from "./Clock";
 
 export default {
-  title: "Clock",
+  title: "Components/Clock",
   component: Clock,
 } as Meta;
 

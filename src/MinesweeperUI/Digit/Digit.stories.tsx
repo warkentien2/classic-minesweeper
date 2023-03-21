@@ -4,7 +4,7 @@ import { Digit } from "./Digit";
 import type { DigitProps } from "./Digit";
 
 export default {
-  title: "Digit",
+  title: "Components/Digit",
   component: Digit,
 } as Meta;
 

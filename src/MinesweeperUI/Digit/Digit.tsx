@@ -22,5 +22,5 @@ const DigitContainer = styled.div<DigitProps>`
 `;
 
 export const Digit = ({ value = "0" }: DigitProps): ReactElement => {
-  return <DigitContainer value={value} />;
+  return <DigitContainer className="minesweeper-digit" value={value} />;
 };

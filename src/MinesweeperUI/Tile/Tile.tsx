@@ -30,5 +30,11 @@ const TileContainer = styled.div<TileProps>`
 `;
 
 export const Tile = ({ value = "blank", onClick }: TileProps): ReactElement => {
-  return <TileContainer onClick={onClick} value={value} />;
+  return (
+    <TileContainer
+      className="minesweeper-tile"
+      onClick={onClick}
+      value={value}
+    />
+  );
 };

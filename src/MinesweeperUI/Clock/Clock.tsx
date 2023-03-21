@@ -11,7 +11,6 @@ export interface ClockProps {
 
 const ClockContainer = styled.div<ClockProps>`
   display: inline-flex;
-  border: 2px inset var(--tile-bg-highlight);
   box-sizing: content-box;
 `;
 
@@ -32,7 +31,7 @@ const formatValue = (value: number): DigitProps["value"][] => {
 
 export const Clock = ({ value = 0 }: ClockProps): ReactElement => {
   return (
-    <ClockContainer value={value}>
+    <ClockContainer className="minesweeper-clock" value={value}>
       {formatValue(value).map((digit, i) => (
         <Digit key={i} value={digit} />
       ))}

@@ -4,7 +4,7 @@ import { Board } from "./Board";
 import type { BoardProps } from "./Board";
 
 export default {
-  title: "Board",
+  title: "Components/Board",
   component: Board,
 } as Meta;
 

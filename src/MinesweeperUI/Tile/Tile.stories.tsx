@@ -4,7 +4,7 @@ import { Tile } from "./Tile";
 import type { TileProps } from "./Tile";
 
 export default {
-  title: "Tile",
+  title: "Components/Tile",
   component: Tile,
 } as Meta;
 

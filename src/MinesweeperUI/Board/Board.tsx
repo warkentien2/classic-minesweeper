@@ -20,7 +20,7 @@ const BoardContainer = styled.div<BoardProps>`
 
 export const Board = ({ size = "small" }: BoardProps): ReactElement => {
   return (
-    <BoardContainer size={size}>
+    <BoardContainer className="minesweeper-board" size={size}>
       {new Array(boardSize[size].columns * boardSize[size].rows)
         .fill("")
         .map((_, i) => (
