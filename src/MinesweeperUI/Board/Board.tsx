@@ -10,10 +10,12 @@ export interface BoardProps {
 }
 
 const BoardContainer = styled.div<BoardProps>`
-  display: grid;
+  display: inline-grid;
   grid-template-columns: repeat(${({ size }) => boardSize[size].columns}, 16px);
   grid-template-rows: repeat(${({ size }) => boardSize[size].rows}, 16px);
   grid-gap: 0;
+  border: 2px inset var(--tile-bg-highlight);
+  box-sizing: content-box;
 `;
 
 export const Board = ({ size = "small" }: BoardProps): ReactElement => {
