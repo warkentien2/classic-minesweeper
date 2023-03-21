@@ -2,14 +2,14 @@ import React from "react";
 import type { ReactElement } from "react";
 import styled from "styled-components";
 
-import { Digit } from "../../MinesweeperUI";
-import type { DigitProps } from "../../MinesweeperUI/types";
+import { Digit } from "..";
+import type { DigitProps } from "../types";
 
-export interface ClockProps {
+export interface CounterProps {
   value?: number;
 }
 
-const ClockContainer = styled.div<ClockProps>`
+const CounterContainer = styled.div<CounterProps>`
   display: inline-flex;
   box-sizing: content-box;
 `;
@@ -29,12 +29,12 @@ const formatValue = (value: number): DigitProps["value"][] => {
   return formattedValue.split("") as DigitProps["value"][];
 };
 
-export const Clock = ({ value = 0 }: ClockProps): ReactElement => {
+export const Counter = ({ value = 0 }: CounterProps): ReactElement => {
   return (
-    <ClockContainer className="minesweeper-clock" value={value}>
+    <CounterContainer className="minesweeper-counter" value={value}>
       {formatValue(value).map((digit, i) => (
         <Digit key={i} value={digit} />
       ))}
-    </ClockContainer>
+    </CounterContainer>
   );
 };

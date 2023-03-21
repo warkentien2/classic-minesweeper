@@ -1,4 +1,4 @@
 export { Board } from "./Board/Board";
-export { Clock } from "./Clock/Clock";
+export { Counter } from "./Counter/Counter";
 export { Digit } from "./Digit/Digit";
 export { Tile } from "./Tile/Tile";

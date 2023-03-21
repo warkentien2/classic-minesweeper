@@ -2,7 +2,7 @@ import React from "react";
 import type { ReactElement } from "react";
 import styled from "styled-components";
 
-import { Clock, Tile } from "../../MinesweeperUI";
+import { Counter, Tile } from "../../MinesweeperUI";
 
 export interface GameHeaderProps {}
 
@@ -14,7 +14,7 @@ const Header = styled.header<GameHeaderProps>`
   border: 2px inset var(--tile-bg-highlight);
   box-sizing: content-box;
 
-  .minesweeper-clock {
+  .minesweeper-counter {
     margin: 4px 6px 5px 6px;
   }
 
@@ -26,9 +26,9 @@ const Header = styled.header<GameHeaderProps>`
 export const GameHeader = ({}: GameHeaderProps): ReactElement => {
   return (
     <Header>
-      <Clock />
+      <Counter />
       <Tile value="happy" />
-      <Clock />
+      <Counter />
     </Header>
   );
 };
