@@ -1,4 +1,4 @@
-export const tileContent = {
+export const tileValue = {
   blank: { size: "small", position: "-114px -57px" },
   one: { size: "small", position: "-2px -25px" },
   two: { size: "small", position: "-18px -25px" },

@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { Tile } from "./Tile";
-import type { TileProps } from "./types";
+import type { TileProps } from "./Tile";
 
 export default {
   title: "Tile",

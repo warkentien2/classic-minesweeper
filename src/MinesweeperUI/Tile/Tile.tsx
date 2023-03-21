@@ -1,10 +1,33 @@
-import React, { ReactElement } from "react";
-import { TileContainer } from "./styled";
-import type { TileProps } from "./types";
+import React from "react";
+import type { ReactElement } from "react";
+import styled from "styled-components";
 
-export const Tile = ({
-  content = "blank",
-  onClick,
-}: TileProps): ReactElement => {
-  return <TileContainer onClick={onClick} content={content}></TileContainer>;
+import spritesheet from "../../assets/spritesheet.png";
+import { tileValue } from "./constants";
+
+export interface TileProps {
+  value: keyof typeof tileValue;
+  onClick?: () => void;
+}
+
+const TileContainer = styled.div<TileProps>`
+  --tile-size: ${({ value }) => `var(--size-${tileValue[value].size})`};
+  width: var(--tile-size);
+  height: var(--tile-size);
+  background: var(--tile-bg);
+  background-size: 144px 81px;
+  background-position: ${({ value }) => tileValue[value].position};
+  background-image: url(${spritesheet});
+  border: 2px outset var(--tile-bg-highlight);
+  transform-origin: 0 0;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:active {
+    border: 2px inset var(--tile-bg);
+  }
+`;
+
+export const Tile = ({ value = "blank", onClick }: TileProps): ReactElement => {
+  return <TileContainer onClick={onClick} value={value}></TileContainer>;
 };
