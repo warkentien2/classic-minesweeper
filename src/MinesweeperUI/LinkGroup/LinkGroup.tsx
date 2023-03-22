@@ -6,18 +6,31 @@ export interface LinkGroupProps {
   children: ReactNode;
 }
 
-const LinkGroupContainer = styled.ul<LinkGroupProps>`
+const LinkGroupContainer = styled.nav<LinkGroupProps>`
   display: flex;
   color: var(--link-color);
   padding: 0;
+  margin: 0;
   list-style: none;
-
-  .minesweeper-link {
-    padding: 0 0.5rem;
-  }
 
   li + li {
     border-left: 1px solid var(--link-color);
+  }
+
+  li {
+    --li-padding: 0.5rem;
+
+    :first-of-type {
+      padding-right: var(--li-padding);
+    }
+
+    :last-of-type {
+      padding-left: var(--li-padding);
+    }
+
+    :not(:first-of-type):not(:last-of-type) .minesweeper-link {
+      padding: 0 var(--li-padding);
+    }
   }
 `;
 

@@ -8,6 +8,7 @@ export interface GameMenuProps {}
 
 const GameMenuContainer = styled.menu<GameMenuProps>`
   padding: 0;
+  margin: 0 0 2px 0;
 `;
 
 export const GameMenu = ({}: GameMenuProps): ReactElement => {
