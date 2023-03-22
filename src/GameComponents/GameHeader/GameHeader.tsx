@@ -25,7 +25,7 @@ const Header = styled.header<GameHeaderProps>`
 
 export const GameHeader = ({}: GameHeaderProps): ReactElement => {
   return (
-    <Header>
+    <Header className="minesweeper-header">
       <Counter />
       <Tile value="happy" />
       <Counter />
