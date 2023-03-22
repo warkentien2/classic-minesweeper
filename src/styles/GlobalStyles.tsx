@@ -7,5 +7,6 @@ export const GlobalStyles = createGlobalStyle`
     --tile-bg: #bdbdbd;
     --tile-bg-highlight: #fff;
     --tile-bg-shadow: #7b7b7b;
+    --link-color: #0000ee;
   }
 `;

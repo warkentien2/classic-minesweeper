@@ -18,6 +18,7 @@ const GameBodyContainer = styled.section<GameBodyProps>`
   border: 2px outset var(--tile-bg-highlight);
   box-sizing: content-box;
   padding: 6px;
+  box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.625);
 
   .minesweeper-header {
     margin-bottom: 6px;
