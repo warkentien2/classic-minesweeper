@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import styled from "styled-components";
 
 import { GameBody } from "..";
-import { GameMenu } from "../../GameComponents";
+import { GameMenu } from "..";
 
 export interface GameProps {}
 

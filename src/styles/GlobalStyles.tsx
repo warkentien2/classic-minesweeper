@@ -1,15 +1,38 @@
 import { createGlobalStyle } from "styled-components";
 
+declare module "styled-components" {
+  export interface DefaultTheme {
+    colors: {
+      background: {
+        primary: string;
+        secondary: string;
+        tertiary: string;
+        highlight: string;
+        shadow: string;
+      };
+      text: {
+        dark: string;
+        light: string;
+        link: string;
+      };
+    };
+    typography: {
+      fontSize: string;
+      fontFamily: string;
+    };
+  }
+}
+
 export const GlobalStyles = createGlobalStyle`
   :root {
     --size-small: 16px;
     --size-medium: 26px;
-    --tile-bg: #bdbdbd;
-    --tile-bg-highlight: #fff;
-    --tile-bg-shadow: #7b7b7b;
-    --link-color: #0000ee;
+    --tile-bg: ${({ theme }) => theme.colors.background.primary};
+    --tile-bg-highlight: ${({ theme }) => theme.colors.background.highlight};
+    --tile-bg-shadow: ${({ theme }) => theme.colors.background.shadow};
+    --link-color: ${({ theme }) => theme.colors.text.link};
 
-    font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: ${({ theme }) => theme.typography.fontSize};
+    font-family: ${({ theme }) => theme.typography.fontFamily};
   }
 `;

@@ -1,7 +1,7 @@
-import React from "react";
-import { ThemeProvider } from "styled-components";
+import React, { useState } from "react";
+import { ThemeProvider, DefaultTheme } from "styled-components";
 import { GlobalStyles } from "../src/styles/GlobalStyles";
-import theme from "../src/styles/theme";
+import { lightTheme, darkTheme } from "../src/styles/themes";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,11 +13,33 @@ export const parameters = {
   },
 };
 
+const inferThemeFromCSS = (): DefaultTheme => {
+  const isDarkModeEnabled =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  return isDarkModeEnabled ? darkTheme : lightTheme;
+};
+
 export const decorators = [
-  (Story) => (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Story />
-    </ThemeProvider>
-  ),
+  (Story) => {
+    const [theme, setTheme] = useState(inferThemeFromCSS());
+
+    return (
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <label>
+          Dark Mode
+          <input
+            type="checkbox"
+            onChange={() =>
+              setTheme(theme === lightTheme ? darkTheme : lightTheme)
+            }
+            checked={theme === darkTheme}
+          />
+        </label>
+        <Story />
+      </ThemeProvider>
+    );
+  },
 ];

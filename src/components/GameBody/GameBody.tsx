@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import styled from "styled-components";
 
 import { Board } from "../../MinesweeperUI";
-import { GameHeader } from "../../GameComponents";
+import { GameHeader } from "..";
 
 export interface GameBodyProps {
   size?: "small" | "medium" | "large";
