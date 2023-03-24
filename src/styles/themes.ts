@@ -32,7 +32,7 @@ export const darkTheme: DefaultTheme = {
     },
     text: {
       dark: "#444444",
-      light: "#AAAAAA",
+      light: "#DDD",
       link: "#0070f3",
     },
   },

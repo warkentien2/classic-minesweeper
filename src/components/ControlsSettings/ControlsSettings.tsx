@@ -11,8 +11,8 @@ export const ControlsSettings = ({
   onClose,
 }: ControlsSettingsProps): ReactElement => {
   return (
-    <Modal title="Game" onClose={onClose} width={140}>
-      <table>
+    <Modal title="Controls" onClose={onClose} width={140}>
+      <table className="tr-lines">
         <tr className="flex-row-center">
           <th className="width-50">Zoom</th>
           <td className="flex-column-left">

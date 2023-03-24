@@ -11,59 +11,16 @@ export const ExportSettings = ({
   onClose,
 }: ExportSettingsProps): ReactElement => {
   return (
-    <Modal title="Game" onClose={onClose} width={140}>
+    <Modal title="Export" onClose={onClose} width={252}>
       <table>
         <tr className="flex-row-center">
-          <th className="width-50">Zoom</th>
-          <td className="flex-column-left">
-            <label>
-              <input type="radio" id="zoom-100" name="zoom" value="100%" />
-              100%
-            </label>
-            <label>
-              <input type="radio" id="zoom-150" name="zoom" value="200%" />
-              150%
-            </label>
-            <label>
-              <input type="radio" id="zoom-200" name="zoom" value="200%" />
-              200%
-            </label>
-          </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th className="width-50">Position</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-              />
-              center
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-              />
-              left
-            </label>
-          </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th>night mode</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="checkbox"
-                id="dark-mode"
-                name="dark-mode"
-                value="dark-mode"
-              />
-            </label>
+          <td className="flex-column">
+            <em>Game state copied to your clipboard!</em>
+            <textarea rows={3}></textarea>
+            <p>
+              ⓘ “First click cannot be a mine” behavior has been disabled for
+              this game, as a result of having clicked “Export”.
+            </p>
           </td>
         </tr>
       </table>

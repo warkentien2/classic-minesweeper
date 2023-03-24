@@ -4,7 +4,7 @@ import { ControlsSettings } from "./ControlsSettings";
 import type { ControlsSettingsProps } from "./ControlsSettings";
 
 export default {
-  title: "GameSections/ControlsSettings",
+  title: "Settings/ControlsSettings",
   component: ControlsSettings,
 } as Meta;
 

@@ -4,7 +4,7 @@ import { ImportSettings } from "./ImportSettings";
 import type { ImportSettingsProps } from "./ImportSettings";
 
 export default {
-  title: "GameSections/ImportSettings",
+  title: "Settings/ImportSettings",
   component: ImportSettings,
 } as Meta;
 

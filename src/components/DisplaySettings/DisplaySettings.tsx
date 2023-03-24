@@ -11,59 +11,49 @@ export const DisplaySettings = ({
   onClose,
 }: DisplaySettingsProps): ReactElement => {
   return (
-    <Modal title="Game" onClose={onClose} width={140}>
-      <table>
+    <Modal title="Display" onClose={onClose} width={312}>
+      <table className="tr-lines">
         <tr className="flex-row-center">
-          <th className="width-50">Zoom</th>
-          <td className="flex-column-left">
-            <label>
-              <input type="radio" id="zoom-100" name="zoom" value="100%" />
-              100%
-            </label>
-            <label>
-              <input type="radio" id="zoom-150" name="zoom" value="200%" />
-              150%
-            </label>
-            <label>
-              <input type="radio" id="zoom-200" name="zoom" value="200%" />
-              200%
-            </label>
+          <th className="width-25">Desktop</th>
+          <td className="flex-column-left width-75">
+            <ul>
+              <li>
+                <strong>Left-click</strong> an empty square to reveal it.
+              </li>
+              <li>
+                <strong>Right-click</strong> (or <strong>Ctrl+click</strong>) an
+                empty square to flag it.
+              </li>
+              <li>
+                <strong>Midde-click</strong> (or{" "}
+                <strong>left+right click</strong>) a number to reveal its
+                adjacent squares.
+              </li>
+              <li>
+                Press <strong>space</strong> bar while hovering over a square to
+                flag it or reveal its adjacent squares.
+              </li>
+              <li>
+                Press <strong>F2</strong> or click the smiley face to start a
+                new game.
+              </li>
+            </ul>
           </td>
         </tr>
         <tr className="flex-row-center">
-          <th className="width-50">Position</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-              />
-              center
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-              />
-              left
-            </label>
-          </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th>night mode</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="checkbox"
-                id="dark-mode"
-                name="dark-mode"
-                value="dark-mode"
-              />
-            </label>
+          <th className="width-25">Mobile</th>
+          <td className="flex-column-left width-75">
+            <ul>
+              <li>
+                <strong>Tap</strong> an empty square to reveal it.
+              </li>
+              <li>
+                <strong>Long-press</strong> an empty square to flag it.
+              </li>
+              <li>
+                <strong>Tap</strong> a number to reveal its adjacent squares.
+              </li>
+            </ul>
           </td>
         </tr>
       </table>

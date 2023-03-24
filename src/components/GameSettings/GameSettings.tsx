@@ -9,51 +9,69 @@ export interface GameSettingsProps {
 
 export const GameSettings = ({ onClose }: GameSettingsProps): ReactElement => {
   return (
-    <Modal title="Game" onClose={onClose} width={140}>
-      <table>
+    <Modal title="Game" onClose={onClose} width={254}>
+      <table className="tr-reverse-zebra">
+        <thead className="flex-row-center">
+          <td tabIndex={-1} className="width-50"></td>
+          <td className="width-16">Height</td>
+          <td className="width-16">Width</td>
+          <td className="width-16">Mines</td>
+        </thead>
+        <tbody className="tr-base">
+          <tr className="flex-row-center">
+            <th className="width-50">
+              <label>
+                <input
+                  type="radio"
+                  id="difficulty-beginner"
+                  name="difficulty"
+                  value="Beginner"
+                />
+                Beginner
+              </label>
+            </th>
+            <td className="width-16">9</td>
+            <td className="width-16">9</td>
+            <td className="width-16">10</td>
+          </tr>
+          <tr className="flex-row-center">
+            <th className="width-50">
+              <label>
+                <input
+                  type="radio"
+                  id="difficulty-intermediate"
+                  name="difficulty"
+                  value="Intermediate"
+                />
+                Intermediate
+              </label>
+            </th>
+            <td className="width-16">16</td>
+            <td className="width-16">16</td>
+            <td className="width-16">40</td>
+          </tr>
+          <tr className="flex-row-center">
+            <th className="width-50">
+              <label>
+                <input
+                  type="radio"
+                  id="difficulty-expert"
+                  name="difficulty"
+                  value="Expert"
+                />
+                Expert
+              </label>
+            </th>
+            <td className="width-16">16</td>
+            <td className="width-16">30</td>
+            <td className="width-16">99</td>
+          </tr>
+        </tbody>
         <tr className="flex-row-center">
-          <th className="width-50">Zoom</th>
-          <td className="flex-column-left">
-            <label>
-              <input type="radio" id="zoom-100" name="zoom" value="100%" />
-              100%
-            </label>
-            <label>
-              <input type="radio" id="zoom-150" name="zoom" value="200%" />
-              150%
-            </label>
-            <label>
-              <input type="radio" id="zoom-200" name="zoom" value="200%" />
-              200%
-            </label>
+          <td className="width-50">
+            <button type="submit">New Game</button>
           </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th className="width-50">Position</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-              />
-              center
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-              />
-              left
-            </label>
-          </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th>night mode</th>
-          <td className="flex-column-left">
+          <td>
             <label>
               <input
                 type="checkbox"
@@ -61,6 +79,7 @@ export const GameSettings = ({ onClose }: GameSettingsProps): ReactElement => {
                 name="dark-mode"
                 value="dark-mode"
               />
+              Marks (?)
             </label>
           </td>
         </tr>

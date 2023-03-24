@@ -27,11 +27,13 @@ const ModalContainer = styled.form<ModalContainerProps>`
     background: ${({ theme }) => theme.colors.background.tertiary};
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: ${({ theme }) => theme.colors.text.light};
-    padding: 4px;
+    padding: 6px 4px;
 
     h2 {
       font-size: inherit;
+      margin: 0;
     }
 
     button {
@@ -42,7 +44,13 @@ const ModalContainer = styled.form<ModalContainerProps>`
       border: none;
       color: inherit;
       cursor: pointer;
+      line-height: 0;
     }
+  }
+
+  .flex-column {
+    display: flex;
+    flex-direction: column;
   }
 
   .flex-row-center {
@@ -61,14 +69,29 @@ const ModalContainer = styled.form<ModalContainerProps>`
 
   table {
     border-spacing: 0;
+
+    tr,
+    thead,
+    tbody {
+      padding: 3px 4px;
+    }
   }
 
-  tr {
-    padding: 4px 6px;
+  .tr-base tr {
+    background: ${({ theme }) => theme.colors.background.secondary} !important;
   }
 
-  tr + tr {
+  .tr-lines tr + tr,
+  .tr-lines thead + tbody,
+  .tr-lines tbody + thead {
     border-top: 1px solid ${({ theme }) => theme.colors.text.dark};
+  }
+
+  .tr-zebra tbody,
+  .tr-reverse-zebra thead,
+  .tr-zebra tr:nth-child(2n),
+  .tr-reverse-zebra tr:nth-child(2n + 1) {
+    background: rgba(0, 0, 0, 0.125);
   }
 
   * {
@@ -77,17 +100,22 @@ const ModalContainer = styled.form<ModalContainerProps>`
 
   /* classes .width-10 to .width-100 (percent) */
   ${css`
-    ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    ${[10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100]
       .map(
         (val) => `
-        .width-${val * 10} {
-          width: ${val * 10}%;
+        .width-${val} {
+          width: ${val}%;
           text-align: left;
         }
       `
       )
       .join("\n")}
   `}
+
+  .width-16 {
+    width: 16.67%;
+    text-align: left;
+  }
 
   .width-33 {
     width: 33.33%;
@@ -107,6 +135,19 @@ const ModalContainer = styled.form<ModalContainerProps>`
 
   input {
     margin: 0 4px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  textarea {
+    margin: 4px 0;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
   }
 `;
 

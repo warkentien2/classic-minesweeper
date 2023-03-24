@@ -4,7 +4,7 @@ import { DisplaySettings } from "./DisplaySettings";
 import type { DisplaySettingsProps } from "./DisplaySettings";
 
 export default {
-  title: "GameSections/DisplaySettings",
+  title: "Settings/DisplaySettings",
   component: DisplaySettings,
 } as Meta;
 
