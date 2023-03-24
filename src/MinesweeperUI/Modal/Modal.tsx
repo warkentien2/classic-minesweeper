@@ -21,7 +21,8 @@ const ModalContainer = styled.form<ModalContainerProps>`
   width: ${({ width }) => width}px;
   text-transform: capitalize;
   border-radius: 2px;
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
 
   header {
     background: ${({ theme }) => theme.colors.background.tertiary};
@@ -143,6 +144,7 @@ const ModalContainer = styled.form<ModalContainerProps>`
 
   textarea {
     margin: 4px 0;
+    resize: vertical;
   }
 
   ul {

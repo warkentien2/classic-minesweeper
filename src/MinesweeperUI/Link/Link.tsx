@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export interface LinkProps {
   children: string;
+  onClick: () => void;
 }
 
 const LinkContainer = styled.a<LinkProps>`
@@ -13,6 +14,13 @@ const LinkContainer = styled.a<LinkProps>`
   cursor: pointer;
 `;
 
-export const Link = ({ children = "link" }: LinkProps): ReactElement => {
-  return <LinkContainer className="minesweeper-link">{children}</LinkContainer>;
+export const Link = ({
+  children = "link",
+  onClick,
+}: LinkProps): ReactElement => {
+  return (
+    <LinkContainer onClick={onClick} className="minesweeper-link">
+      {children}
+    </LinkContainer>
+  );
 };

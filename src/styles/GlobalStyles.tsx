@@ -30,6 +30,7 @@ export const GlobalStyles = createGlobalStyle`
     --tile-bg: ${({ theme }) => theme.colors.background.primary};
     --tile-bg-highlight: ${({ theme }) => theme.colors.background.highlight};
     --tile-bg-shadow: ${({ theme }) => theme.colors.background.shadow};
+    --tile-shadow: 0.75px 1.5px 2px var(--tile-bg-shadow);
     --link-color: ${({ theme }) => theme.colors.text.link};
 
     font-size: ${({ theme }) => theme.typography.fontSize};
