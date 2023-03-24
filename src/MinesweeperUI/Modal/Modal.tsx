@@ -10,6 +10,7 @@ export interface ModalProps extends ModalContainerProps {
   title: string;
   onClose: () => void;
   children: React.ReactNode;
+  onSubmit?: () => void;
 }
 
 const ModalContainer = styled.form<ModalContainerProps>`
@@ -158,8 +159,13 @@ export const Modal = ({
   width = 140,
   onClose,
   children,
+  onSubmit,
 }: ModalProps): ReactElement => (
-  <ModalContainer className="minesweeper-modal" width={width}>
+  <ModalContainer
+    className="minesweeper-modal"
+    width={width}
+    onSubmit={onSubmit}
+  >
     <header>
       <h2>{title}</h2>
       <button onClick={onClose} aria-label="close">

@@ -1,4 +1,4 @@
-const config = {
+export const config = {
   difficulty: {
     beginner: {
       rows: 9,

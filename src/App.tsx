@@ -4,14 +4,10 @@ import { ThemeProvider, DefaultTheme } from "styled-components";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { lightTheme, darkTheme } from "./styles/themes";
 import { Game } from "./components/";
+import { isDarkModeEnabled } from "./utils";
 
-const inferThemeFromCSS = (): DefaultTheme => {
-  const isDarkModeEnabled =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  return isDarkModeEnabled ? darkTheme : lightTheme;
-};
+const inferThemeFromCSS = (): DefaultTheme =>
+  isDarkModeEnabled() ? darkTheme : lightTheme;
 
 function App() {
   const [theme, setTheme] = useState(inferThemeFromCSS());

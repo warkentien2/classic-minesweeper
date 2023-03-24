@@ -57,7 +57,16 @@ const renderSettings = (
     case "ExportSettings":
       return <ExportSettings onClose={onClick} />;
     case "GameSettings":
-      return <GameSettings onClose={onClick} />;
+      return (
+        <GameSettings
+          state={{
+            difficulty: "easy",
+            shouldUseQuestionMark: true,
+          }}
+          setState={() => {}}
+          onClose={onClick}
+        />
+      );
     case "ImportSettings":
       return <ImportSettings onClose={onClick} />;
     default:

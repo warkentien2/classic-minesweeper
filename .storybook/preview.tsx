@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
+
 import { GlobalStyles } from "../src/styles/GlobalStyles";
 import { lightTheme, darkTheme } from "../src/styles/themes";
+import { isDarkModeEnabled } from "../src/utils";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,13 +15,8 @@ export const parameters = {
   },
 };
 
-const inferThemeFromCSS = (): DefaultTheme => {
-  const isDarkModeEnabled =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  return isDarkModeEnabled ? darkTheme : lightTheme;
-};
+const inferThemeFromCSS = (): DefaultTheme =>
+  isDarkModeEnabled() ? darkTheme : lightTheme;
 
 export const decorators = [
   (Story) => {

@@ -10,7 +10,7 @@ export const tileValue = {
   eight: { size: "small", position: "-114px -25px" },
   flag: { size: "small", position: "-2px -41px" },
   falseFlag: { size: "small", position: "-18px -41px" },
-  bomb: { size: "small", position: "-34px -41px" },
+  mine: { size: "small", position: "-34px -41px" },
   mystery: { size: "small", position: "-50px -41px" },
   happy: { size: "medium", position: "-2px -57px" },
   surprised: { size: "medium", position: "-28px -57px" },
