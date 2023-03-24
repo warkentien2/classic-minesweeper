@@ -1,11 +1,21 @@
 import { useState } from "react";
 
-export const useInput = (initialValue: string) => {
+export const useInput = <T>(initialValue: T) => {
   const [state, setState] = useState(initialValue);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value);
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+
+    if (!isNaN(Number(value))) {
+      setState(parseInt(value) as unknown as T);
+    } else if (value === "true" || value === "false") {
+      setState((value === "true") as unknown as T);
+    } else {
+      setState(value as unknown as T);
+    }
   };
 
-  return [state, onChange];
+  return [state, onChange] as const;
 };
