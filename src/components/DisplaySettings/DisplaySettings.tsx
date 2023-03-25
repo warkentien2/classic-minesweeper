@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import type { ReactElement } from "react";
 
 import { Modal } from "../../MinesweeperUI";
+import { useInput } from "../../hooks";
+import { GameContext } from "../../engine";
 
 export interface DisplaySettingsProps {
   onClose: () => void;
@@ -10,50 +12,109 @@ export interface DisplaySettingsProps {
 export const DisplaySettings = ({
   onClose,
 }: DisplaySettingsProps): ReactElement => {
+  const { gameStore, setGameStore } = useContext(GameContext);
+  const [zoom, onChangeZoom] = useInput(gameStore.zoom);
+  const [position, onChangePosition] = useInput(gameStore.position);
+  const [nightMode, onChangeNightMode] = useInput(gameStore.nightMode);
+
+  useEffect(() => {
+    if (
+      gameStore.zoom === zoom &&
+      gameStore.position === position &&
+      gameStore.nightMode === nightMode
+    )
+      return;
+
+    const updateStore = {
+      ...gameStore,
+      zoom,
+      position,
+      nightMode,
+    };
+    setGameStore(updateStore);
+  }, [zoom, position, nightMode]);
+
   return (
-    <Modal title="Display" onClose={onClose} width={312}>
+    <Modal title="Display" onClose={onClose} width={140} onSubmit={() => {}}>
       <table className="tr-lines">
         <tr className="flex-row-center">
-          <th className="width-25">Desktop</th>
-          <td className="flex-column-left width-75">
-            <ul>
-              <li>
-                <strong>Left-click</strong> an empty square to reveal it.
-              </li>
-              <li>
-                <strong>Right-click</strong> (or <strong>Ctrl+click</strong>) an
-                empty square to flag it.
-              </li>
-              <li>
-                <strong>Midde-click</strong> (or{" "}
-                <strong>left+right click</strong>) a number to reveal its
-                adjacent squares.
-              </li>
-              <li>
-                Press <strong>space</strong> bar while hovering over a square to
-                flag it or reveal its adjacent squares.
-              </li>
-              <li>
-                Press <strong>F2</strong> or click the smiley face to start a
-                new game.
-              </li>
-            </ul>
+          <th className="width-50">Zoom</th>
+          <td className="flex-column-left">
+            <label>
+              <input
+                type="radio"
+                id="zoom-100"
+                name="zoom"
+                value="100"
+                checked={zoom === 100}
+                onChange={onChangeZoom}
+              />
+              100%
+            </label>
+            <label>
+              <input
+                type="radio"
+                id="zoom-150"
+                name="zoom"
+                value="150"
+                checked={zoom === 150}
+                onChange={onChangeZoom}
+              />
+              150%
+            </label>
+            <label>
+              <input
+                type="radio"
+                id="zoom-200"
+                name="zoom"
+                value="200"
+                checked={zoom === 200}
+                onChange={onChangeZoom}
+              />
+              200%
+            </label>
           </td>
         </tr>
         <tr className="flex-row-center">
-          <th className="width-25">Mobile</th>
-          <td className="flex-column-left width-75">
-            <ul>
-              <li>
-                <strong>Tap</strong> an empty square to reveal it.
-              </li>
-              <li>
-                <strong>Long-press</strong> an empty square to flag it.
-              </li>
-              <li>
-                <strong>Tap</strong> a number to reveal its adjacent squares.
-              </li>
-            </ul>
+          <th className="width-50">Position</th>
+          <td className="flex-column-left">
+            <label>
+              <input
+                type="radio"
+                id="position-center"
+                name="position"
+                value="center"
+                checked={position === "center"}
+                onChange={onChangePosition}
+              />
+              center
+            </label>
+            <label>
+              <input
+                type="radio"
+                id="position-left"
+                name="position"
+                value="left"
+                checked={position === "left"}
+                onChange={onChangePosition}
+              />
+              left
+            </label>
+          </td>
+        </tr>
+        <tr className="flex-row-center">
+          <th>night mode</th>
+          <td className="flex-column-left">
+            <label>
+              <input
+                type="checkbox"
+                id="dark-mode"
+                name="dark-mode"
+                value={nightMode.toString()}
+                checked={nightMode}
+                onChange={onChangeNightMode}
+              />
+            </label>
           </td>
         </tr>
       </table>

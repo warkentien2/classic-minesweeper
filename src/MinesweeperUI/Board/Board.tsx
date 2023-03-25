@@ -34,7 +34,10 @@ const BoardContainer = styled.div<BoardContainerProps>`
   }
 `;
 
-export const Board = ({ size = "small", tiles }: BoardProps): ReactElement => {
+export const Board = ({
+  size = "beginner",
+  tiles,
+}: BoardProps): ReactElement => {
   return (
     <BoardContainer className="minesweeper-board" size={size}>
       {tiles.map((tile, i) => (
