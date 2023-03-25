@@ -2,21 +2,29 @@ import { createContext } from "react";
 
 import { isDarkModeEnabled } from "../utils";
 import { generateBoard } from "./generateBoard";
+import type { TileValueType } from "../types/gameTypes";
 
-export interface Context {
+export interface GameStateType {
   difficulty: "beginner" | "intermediate" | "expert";
   shouldShowQuestionMarks: boolean;
   zoom: 100 | 150 | 200;
   position: "center" | "left";
   nightMode: boolean;
-  board: string[];
+  board: TileValueType[];
+}
+export interface GameContextType {
+  gameStore: GameStateType;
+  setGameStore: React.Dispatch<React.SetStateAction<GameStateType>>;
 }
 
-export const Context = createContext({
-  difficulty: "beginner",
-  shouldShowQuestionMarks: false,
-  zoom: 100,
-  position: "center",
-  nightMode: isDarkModeEnabled(),
-  board: generateBoard("beginner"),
+export const GameContext = createContext<GameContextType>({
+  gameStore: {
+    difficulty: "beginner",
+    shouldShowQuestionMarks: false,
+    zoom: 100,
+    position: "center",
+    nightMode: isDarkModeEnabled(),
+    board: generateBoard("beginner"),
+  },
+  setGameStore: () => {},
 });

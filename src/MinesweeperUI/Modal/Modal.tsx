@@ -10,7 +10,7 @@ export interface ModalProps extends ModalContainerProps {
   title: string;
   onClose: () => void;
   children: React.ReactNode;
-  onSubmit?: () => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const ModalContainer = styled.form<ModalContainerProps>`

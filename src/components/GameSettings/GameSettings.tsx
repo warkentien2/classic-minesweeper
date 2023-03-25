@@ -1,30 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import type { ReactElement } from "react";
 
 import { Modal } from "../../MinesweeperUI";
 import { useInput } from "../../hooks";
+import { GameContext, generateBoard } from "../../engine";
 
 export interface GameSettingsProps {
-  state: {
-    difficulty: string;
-    shouldUseQuestionMark: boolean;
-  };
-  setState: () => void;
   onClose: () => void;
 }
 
-export const GameSettings = ({
-  state,
-  setState,
-  onClose,
-}: GameSettingsProps): ReactElement => {
-  const [difficulty, onChangeDifficulty] = useInput(state.difficulty);
-  const [shouldUseQuestionMark, onChangeShouldUseQuestionMark] = useInput(
-    state.shouldUseQuestionMark
+export const GameSettings = ({ onClose }: GameSettingsProps): ReactElement => {
+  const { gameStore, setGameStore } = useContext(GameContext);
+  const [difficulty, onChangeDifficulty] = useInput(gameStore.difficulty);
+  const [shouldShowQuestionMarks, onChangeShouldUseQuestionMark] = useInput(
+    gameStore.shouldShowQuestionMarks
   );
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const newStore = {
+      ...gameStore,
+      difficulty,
+      shouldShowQuestionMarks,
+      board: generateBoard(difficulty),
+    };
+    setGameStore(newStore);
+    onClose();
+  };
+
   return (
-    <Modal title="Game" onClose={onClose} width={254} onSubmit={setState}>
+    <Modal title="Game" onClose={onClose} width={254} onSubmit={handleSubmit}>
       <table className="tr-reverse-zebra">
         <thead className="flex-row-center">
           <td tabIndex={-1} className="width-50"></td>
@@ -40,8 +45,8 @@ export const GameSettings = ({
                   type="radio"
                   id="difficulty-beginner"
                   name="difficulty"
-                  value="Beginner"
-                  checked={difficulty === "Beginner"}
+                  value="beginner"
+                  checked={difficulty === "beginner"}
                   onChange={onChangeDifficulty}
                 />
                 Beginner
@@ -58,8 +63,8 @@ export const GameSettings = ({
                   type="radio"
                   id="difficulty-intermediate"
                   name="difficulty"
-                  value="Intermediate"
-                  checked={difficulty === "Intermediate"}
+                  value="intermediate"
+                  checked={difficulty === "intermediate"}
                   onChange={onChangeDifficulty}
                 />
                 Intermediate
@@ -76,8 +81,8 @@ export const GameSettings = ({
                   type="radio"
                   id="difficulty-expert"
                   name="difficulty"
-                  value="Expert"
-                  checked={difficulty === "Expert"}
+                  value="expert"
+                  checked={difficulty === "expert"}
                   onChange={onChangeDifficulty}
                 />
                 Expert
@@ -96,10 +101,10 @@ export const GameSettings = ({
             <label>
               <input
                 type="checkbox"
-                id="dark-mode"
-                name="dark-mode"
-                value="dark-mode"
-                checked={!!shouldUseQuestionMark}
+                id="shouldShowQuestionMark"
+                name="shouldShowQuestionMark"
+                value={shouldShowQuestionMarks.toString()}
+                checked={shouldShowQuestionMarks}
                 onChange={onChangeShouldUseQuestionMark}
               />
               Marks (?)

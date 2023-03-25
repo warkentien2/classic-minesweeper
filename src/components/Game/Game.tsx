@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import type { ReactElement } from "react";
 import styled from "styled-components";
 
@@ -11,11 +11,9 @@ import {
   ExportSettings,
   GameSettings,
   ImportSettings,
-} from "..";
-
-export interface GameProps {
-  size?: "small" | "medium" | "large";
-}
+} from "../../Components";
+import { GameContext } from "../../engine";
+import type { GameStateType } from "../../engine/types";
 
 const GameBodyContainer = styled.section`
   display: inline-flex;
@@ -57,16 +55,7 @@ const renderSettings = (
     case "ExportSettings":
       return <ExportSettings onClose={onClick} />;
     case "GameSettings":
-      return (
-        <GameSettings
-          state={{
-            difficulty: "easy",
-            shouldUseQuestionMark: true,
-          }}
-          setState={() => {}}
-          onClose={onClick}
-        />
-      );
+      return <GameSettings onClose={onClick} />;
     case "ImportSettings":
       return <ImportSettings onClose={onClick} />;
     default:
@@ -74,23 +63,28 @@ const renderSettings = (
   }
 };
 
-export const Game = ({ size = "small" }: GameProps): ReactElement => {
+export const Game = (): ReactElement => {
   const [settings, setSettings] = React.useState("");
+  const [gameStore, setGameStore] = React.useState<GameStateType>(
+    useContext(GameContext).gameStore
+  );
 
   const onClose = () => setSettings("");
 
   const onOpen = (settings: string) => setSettings(settings);
 
   return (
-    <GameContainer className="minesweeper-game">
-      <GameMenu onOpen={onOpen} />
-      <GameBodyContainer className="minesweeper-body">
-        <GameHeader />
-        <div className="minesweeper-body">
-          {settings && renderSettings(settings, onClose)}
-          <Board size={size} />
-        </div>
-      </GameBodyContainer>
-    </GameContainer>
+    <GameContext.Provider value={{ gameStore, setGameStore }}>
+      <GameContainer className="minesweeper-game">
+        <GameMenu onOpen={onOpen} />
+        <GameBodyContainer className="minesweeper-body">
+          <GameHeader />
+          <div className="minesweeper-body">
+            {settings && renderSettings(settings, onClose)}
+            <Board size={gameStore.difficulty} tiles={gameStore.board} />
+          </div>
+        </GameBodyContainer>
+      </GameContainer>
+    </GameContext.Provider>
   );
 };

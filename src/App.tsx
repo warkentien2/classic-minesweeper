@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
-import { GlobalStyles } from "./styles/GlobalStyles";
-import { lightTheme, darkTheme } from "./styles/themes";
-import { Game } from "./components/";
+import { GlobalStyles } from "./Styles/GlobalStyles";
+import { lightTheme, darkTheme } from "./Styles/themes";
+import { Game } from "./Components";
 import { isDarkModeEnabled } from "./utils";
 
 const inferThemeFromCSS = (): DefaultTheme =>

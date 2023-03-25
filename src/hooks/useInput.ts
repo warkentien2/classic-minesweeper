@@ -11,7 +11,7 @@ export const useInput = <T>(initialValue: T) => {
     if (!isNaN(Number(value))) {
       setState(parseInt(value) as unknown as T);
     } else if (value === "true" || value === "false") {
-      setState((value === "true") as unknown as T);
+      setState(Boolean(value) as unknown as T);
     } else {
       setState(value as unknown as T);
     }

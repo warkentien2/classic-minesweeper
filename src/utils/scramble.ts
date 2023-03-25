@@ -1,8 +1,8 @@
-export const scramble = (...args: string[][]): string[] => {
+export const scramble = <T>(...args: T[][]): T[] => {
   const weights: { [key: string]: number } = {};
   const arraysToScramble = [...args]; // copy the args
   const totalTiles = arraysToScramble.reduce((acc, arg) => acc + arg.length, 0);
-  const scrambledArray: string[] = [];
+  const scrambledArray: T[] = [];
 
   // set proportional interval 0-1 for each arg
   // const a = [1, 2, 3, 4];

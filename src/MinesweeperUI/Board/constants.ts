@@ -1,13 +1,13 @@
 export const boardSize = {
-  small: {
+  beginner: {
     columns: 9,
     rows: 9,
   },
-  medium: {
+  intermediate: {
     columns: 16,
     rows: 16,
   },
-  large: {
+  expert: {
     columns: 30,
     rows: 16,
   },

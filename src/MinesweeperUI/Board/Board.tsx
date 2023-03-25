@@ -4,12 +4,17 @@ import styled from "styled-components";
 
 import { boardSize } from "./constants";
 import { Tile } from "../../MinesweeperUI";
+import type { TileProps } from "../../MinesweeperUI/types";
 
-export interface BoardProps {
+export interface BoardContainerProps {
   size: keyof typeof boardSize;
 }
 
-const BoardContainer = styled.div<BoardProps>`
+export interface BoardProps extends BoardContainerProps {
+  tiles: TileProps["value"][];
+}
+
+const BoardContainer = styled.div<BoardContainerProps>`
   position: relative;
   display: inline-grid;
   grid-template-columns: repeat(${({ size }) => boardSize[size].columns}, 16px);
@@ -29,23 +34,12 @@ const BoardContainer = styled.div<BoardProps>`
   }
 `;
 
-export const Board = ({ size = "small" }: BoardProps): ReactElement => {
+export const Board = ({ size = "small", tiles }: BoardProps): ReactElement => {
   return (
     <BoardContainer className="minesweeper-board" size={size}>
-      {new Array(boardSize[size].columns * boardSize[size].rows)
-        .fill("")
-        .map((_, i) => (
-          <Tile
-            key={i}
-            className={
-              i === 2 ||
-              i === 25 ||
-              (i > 30 && i !== 43 && i !== 48 && i !== 57)
-                ? "active"
-                : ""
-            }
-          />
-        ))}
+      {tiles.map((tile, i) => (
+        <Tile key={i} value={tile} />
+      ))}
     </BoardContainer>
   );
 };
