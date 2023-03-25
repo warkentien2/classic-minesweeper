@@ -12,6 +12,7 @@ export interface GameStateType {
   nightMode: boolean;
   board: TileValueType[];
 }
+
 export interface GameContextType {
   gameStore: GameStateType;
   setGameStore: React.Dispatch<React.SetStateAction<GameStateType>>;

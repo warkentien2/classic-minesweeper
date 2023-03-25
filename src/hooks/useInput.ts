@@ -1,10 +1,15 @@
 import { useState } from "react";
 
+type HTMLFormFieldElement =
+  | HTMLInputElement
+  | HTMLSelectElement
+  | HTMLTextAreaElement;
+
 export const useInput = <T>(initialValue: T) => {
   const [state, setState] = useState(initialValue);
 
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e: React.ChangeEvent<HTMLInputElement>
+  const onChange: React.ChangeEventHandler<HTMLFormFieldElement> = (
+    e: React.ChangeEvent<HTMLFormFieldElement>
   ) => {
     const value = e.target.value;
 

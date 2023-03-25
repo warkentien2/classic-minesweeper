@@ -35,7 +35,7 @@ export const DisplaySettings = ({
   }, [zoom, position, nightMode]);
 
   return (
-    <Modal title="Display" onClose={onClose} width={140} onSubmit={() => {}}>
+    <Modal title="Display" onClose={onClose} width={140}>
       <table className="tr-lines">
         <tr className="flex-row-center">
           <th className="width-50">Zoom</th>

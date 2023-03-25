@@ -164,7 +164,7 @@ export const Modal = ({
   <ModalContainer
     className="minesweeper-modal"
     width={width}
-    onSubmit={onSubmit}
+    onSubmit={onSubmit && onSubmit}
   >
     <header>
       <h2>{title}</h2>
