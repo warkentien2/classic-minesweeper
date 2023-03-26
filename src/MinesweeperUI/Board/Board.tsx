@@ -20,7 +20,9 @@ const BoardContainer = styled.div<BoardContainerProps>`
   grid-template-columns: repeat(${({ size }) => boardSize[size].columns}, 16px);
   grid-template-rows: repeat(${({ size }) => boardSize[size].rows}, 16px);
   grid-gap: 1px;
-  border: 2px inset var(--tile-bg-highlight);
+  border: 2px solid;
+  border-color: var(--tile-bg-shadow) var(--tile-bg-highlight)
+    var(--tile-bg-highlight) var(--tile-bg-shadow);
   box-sizing: content-box;
   background: var(--tile-bg-shadow);
 

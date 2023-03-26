@@ -22,7 +22,9 @@ const TileContainer = styled.div<TileProps>`
   background-size: 144px 81px;
   background-position: ${({ value }) => value && tileValue[value].position};
   background-image: url(${spritesheet});
-  border: 2px outset var(--tile-bg-highlight);
+  border: 2px solid;
+  border-color: var(--tile-bg-highlight) var(--tile-bg-shadow)
+    var(--tile-bg-shadow) var(--tile-bg-highlight);
   transform-origin: 0 0;
   cursor: pointer;
   box-shadow: var(--tile-shadow);

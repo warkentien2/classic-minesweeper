@@ -63,7 +63,9 @@ const GameBodyContainer = styled.section<GameBodyContainerProps>`
     justify-content: space-between;
     align-items: stretch;
     background-color: var(--tile-bg);
-    border: 2px outset var(--tile-bg-highlight);
+    border: 2px solid;
+    border-color: var(--tile-bg-highlight) var(--tile-bg-shadow)
+      var(--tile-bg-shadow) var(--tile-bg-highlight);
     box-sizing: border-box;
     padding: 6px;
     box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.625);

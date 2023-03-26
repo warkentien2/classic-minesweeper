@@ -11,7 +11,9 @@ const Header = styled.header<GameHeaderProps>`
   justify-content: space-between;
   align-items: center;
   background-color: var(--tile-bg);
-  border: 2px inset var(--tile-bg-highlight);
+  border: 2px solid;
+  border-color: var(--tile-bg-shadow) var(--tile-bg-highlight)
+    var(--tile-bg-highlight) var(--tile-bg-shadow);
   box-shadow: inset var(--tile-shadow);
   box-sizing: content-box;
 
@@ -21,7 +23,9 @@ const Header = styled.header<GameHeaderProps>`
 
   .minesweeper-tile {
     margin: 3px 0;
-    border: 2px outset var(--tile-bg-highlight);
+    border: 2px solid;
+    border-color: var(--tile-bg-highlight) var(--tile-bg-shadow)
+      var(--tile-bg-shadow) var(--tile-bg-highlight);
     box-shadow: var(--tile-shadow);
     outline: 1px solid var(--tile-bg-shadow);
   }
