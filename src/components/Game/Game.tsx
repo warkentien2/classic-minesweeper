@@ -15,18 +15,21 @@ import {
 import { GameContext } from "../../engine";
 import type { GameStateType } from "../../engine/types";
 
-const GameContainer = styled.section`
+interface GameContainerProps {
+  position: string;
+}
+
+const GameContainer = styled.section<GameContainerProps>`
   position: relative;
-  display: inline-block;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: ${({ position }) =>
+    position === "center" ? `center;` : `flex-start`};
 
   .minesweeper-body {
     position: relative;
-  }
-
-  .minesweeper-modal {
-    position: absolute;
-    top: 10px;
-    left: 8px;
   }
 `;
 
@@ -39,6 +42,7 @@ interface GameBodyContainerProps {
     width: number;
     height: number;
   };
+  position: string;
   zoom: number;
 }
 
@@ -73,8 +77,14 @@ const GameBodyContainer = styled.section<GameBodyContainerProps>`
   }
 
   .minesweeper-modal {
+    position: absolute;
+    top: 10px;
     transform-origin: 0 0;
-    transform: scale(${({ zoom }) => 100 / zoom});
+    transform: ${({ position, zoom }) =>
+      position === "center"
+        ? `scale(${100 / zoom}) translateX(-50%)`
+        : `scale(${100 / zoom})`};
+    left: ${({ position }) => (position === "center" ? `50%` : `8px`)};
   }
 
   .minesweeper-header {
@@ -131,12 +141,13 @@ export const Game = (): ReactElement => {
 
   return (
     <GameContext.Provider value={{ gameStore, setGameStore }}>
-      <GameContainer className="minesweeper-game">
+      <GameContainer className="minesweeper-game" position={gameStore.position}>
         <GameMenu onOpen={onOpen} />
         <GameBodyContainer
           className="minesweeper-body"
           dimension={gameDimension}
           zoom={gameStore.zoom}
+          position={gameStore.position}
         >
           <ZoomTarget ref={gameRef}>
             <GameHeader />
