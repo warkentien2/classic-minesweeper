@@ -35,21 +35,22 @@ const ZoomTarget = styled.div`
 `;
 
 interface GameBodyContainerProps {
-  zoom: number;
   dimension: {
     width: number;
     height: number;
   };
+  zoom: number;
 }
 
 const GameBodyContainer = styled.section<GameBodyContainerProps>`
   position: relative;
+  display: inline-block;
 
-  ${({ zoom, dimension }) => {
+  ${({ dimension }) => {
     if (dimension.width && dimension.height) {
       return css`
-        width: ${(dimension.width * zoom) / 100}px;
-        height: ${(dimension.height * zoom) / 100}px;
+        width: ${dimension.width}px;
+        height: ${dimension.height}px;
       `;
     }
   }}
@@ -126,7 +127,7 @@ export const Game = (): ReactElement => {
         height: Math.round(height),
       });
     }
-  }, [gameRef, gameStore.difficulty]);
+  }, [gameRef, gameStore.difficulty, gameStore.zoom]);
 
   return (
     <GameContext.Provider value={{ gameStore, setGameStore }}>

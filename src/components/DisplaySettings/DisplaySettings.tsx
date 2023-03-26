@@ -4,6 +4,7 @@ import type { ReactElement } from "react";
 import { Modal } from "../../MinesweeperUI";
 import { useInput } from "../../hooks";
 import { GameContext } from "../../engine";
+import type { GameStateType } from "../../engine/types";
 
 export interface DisplaySettingsProps {
   onClose: () => void;
@@ -16,6 +17,10 @@ export const DisplaySettings = ({
   const [zoom, onChangeZoom] = useInput(gameStore.zoom);
   const [position, onChangePosition] = useInput(gameStore.position);
   const [nightMode, onChangeNightMode] = useInput(gameStore.nightMode);
+
+  console.log({
+    nightMode,
+  });
 
   useEffect(() => {
     if (
@@ -30,7 +35,7 @@ export const DisplaySettings = ({
       zoom,
       position,
       nightMode,
-    };
+    } as GameStateType;
     setGameStore(updateStore);
   }, [zoom, position, nightMode]);
 
@@ -110,8 +115,8 @@ export const DisplaySettings = ({
                 type="checkbox"
                 id="dark-mode"
                 name="dark-mode"
-                value={nightMode.toString()}
-                checked={nightMode}
+                value="boolean"
+                checked={Boolean(nightMode)}
                 onChange={onChangeNightMode}
               />
             </label>
