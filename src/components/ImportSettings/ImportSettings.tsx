@@ -19,10 +19,8 @@ export const ImportSettings = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const decryptedGameState = decrypt(encryptedGameState);
-    console.log({ decryptedGameState });
+    const decryptedGameState = decrypt(encryptedGameState.toString());
     if (gameStateSchema.parse(decryptedGameState)) {
-      console.log("Valid game state");
       setGameStore(decryptedGameState);
     }
     onClose();
@@ -31,19 +29,25 @@ export const ImportSettings = ({
   return (
     <Modal title="Import" onClose={onClose} width={252} onSubmit={handleSubmit}>
       <table className="tr-zebra">
-        <tr className="flex-column">
-          <td className="flex-column">
-            <p>Paste exported game state:</p>
-            <textarea rows={3} onChange={onChangeEncryptedGameState}>
-              {encryptedGameState}
-            </textarea>
-          </td>
-        </tr>
-        <tr className="flex-column-left">
-          <button type="submit" disabled={!encryptedGameState}>
-            Load Game
-          </button>
-        </tr>
+        <tbody>
+          <tr className="flex-column">
+            <td className="flex-column">
+              <p>Paste exported game state:</p>
+              <textarea
+                rows={3}
+                onChange={onChangeEncryptedGameState}
+                value={encryptedGameState}
+              />
+            </td>
+          </tr>
+          <tr className="flex-column-left">
+            <td>
+              <button type="submit" disabled={!encryptedGameState}>
+                Load Game
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </Modal>
   );

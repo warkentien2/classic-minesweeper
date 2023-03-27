@@ -35,5 +35,6 @@ export const GlobalStyles = createGlobalStyle`
 
     font-size: ${({ theme }) => theme.typography.fontSize};
     font-family: ${({ theme }) => theme.typography.fontFamily};
+    line-height: 1.5;
   }
 `;

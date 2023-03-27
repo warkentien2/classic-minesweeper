@@ -18,10 +18,6 @@ export const DisplaySettings = ({
   const [position, onChangePosition] = useInput(gameStore.position);
   const [nightMode, onChangeNightMode] = useInput(gameStore.nightMode);
 
-  console.log({
-    nightMode,
-  });
-
   useEffect(() => {
     if (
       gameStore.zoom === zoom &&
@@ -42,86 +38,88 @@ export const DisplaySettings = ({
   return (
     <Modal title="Display" onClose={onClose} width={140}>
       <table className="tr-lines">
-        <tr className="flex-row-center">
-          <th className="width-50">Zoom</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="radio"
-                id="zoom-100"
-                name="zoom"
-                value="100"
-                checked={zoom === 100}
-                onChange={onChangeZoom}
-              />
-              100%
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="zoom-150"
-                name="zoom"
-                value="150"
-                checked={zoom === 150}
-                onChange={onChangeZoom}
-              />
-              150%
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="zoom-200"
-                name="zoom"
-                value="200"
-                checked={zoom === 200}
-                onChange={onChangeZoom}
-              />
-              200%
-            </label>
-          </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th className="width-50">Position</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="radio"
-                id="position-center"
-                name="position"
-                value="center"
-                checked={position === "center"}
-                onChange={onChangePosition}
-              />
-              center
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="position-left"
-                name="position"
-                value="left"
-                checked={position === "left"}
-                onChange={onChangePosition}
-              />
-              left
-            </label>
-          </td>
-        </tr>
-        <tr className="flex-row-center">
-          <th>night mode</th>
-          <td className="flex-column-left">
-            <label>
-              <input
-                type="checkbox"
-                id="dark-mode"
-                name="dark-mode"
-                value="boolean"
-                checked={Boolean(nightMode)}
-                onChange={onChangeNightMode}
-              />
-            </label>
-          </td>
-        </tr>
+        <tbody>
+          <tr className="flex-row-center">
+            <th className="width-50">Zoom</th>
+            <td className="flex-column-left">
+              <label>
+                <input
+                  type="radio"
+                  id="zoom-100"
+                  name="zoom"
+                  value="100"
+                  checked={zoom === 100}
+                  onChange={onChangeZoom}
+                />
+                100%
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  id="zoom-150"
+                  name="zoom"
+                  value="150"
+                  checked={zoom === 150}
+                  onChange={onChangeZoom}
+                />
+                150%
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  id="zoom-200"
+                  name="zoom"
+                  value="200"
+                  checked={zoom === 200}
+                  onChange={onChangeZoom}
+                />
+                200%
+              </label>
+            </td>
+          </tr>
+          <tr className="flex-row-center">
+            <th className="width-50">Position</th>
+            <td className="flex-column-left">
+              <label>
+                <input
+                  type="radio"
+                  id="position-center"
+                  name="position"
+                  value="center"
+                  checked={position === "center"}
+                  onChange={onChangePosition}
+                />
+                center
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  id="position-left"
+                  name="position"
+                  value="left"
+                  checked={position === "left"}
+                  onChange={onChangePosition}
+                />
+                left
+              </label>
+            </td>
+          </tr>
+          <tr className="flex-row-center">
+            <th>night mode</th>
+            <td className="flex-column-left">
+              <label>
+                <input
+                  type="checkbox"
+                  id="dark-mode"
+                  name="dark-mode"
+                  value="boolean"
+                  checked={Boolean(nightMode)}
+                  onChange={onChangeNightMode}
+                />
+              </label>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </Modal>
   );

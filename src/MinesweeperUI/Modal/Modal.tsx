@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import type { ReactElement } from "react";
 import styled, { css } from "styled-components";
 
@@ -72,13 +72,42 @@ const ModalContainer = styled.form<ModalContainerProps>`
   table {
     border-spacing: 0;
 
-    tr,
+    tr {
+      width: 100%;
+      padding: 6px;
+    }
+
+    th,
+    td {
+      padding: 0;
+    }
+
+    tbody th {
+      line-height: 1em;
+    }
+
     thead,
-    tbody {
-      padding: 3px 4px;
+    tbody,
+    tfoot {
+      tr:not([class]) {
+        display: flex;
+      }
+    }
+
+    thead th {
+      font-weight: normal;
+    }
+
+    th + th {
+      margin-left: 6px;
+    }
+
+    & > *:last-child tr:last-child {
+      min-height: 34px;
     }
   }
 
+  /* <tr> styles */
   .tr-base tr {
     background: ${({ theme }) => theme.colors.background.secondary} !important;
   }
@@ -131,7 +160,8 @@ const ModalContainer = styled.form<ModalContainerProps>`
 
   label {
     display: inline-flex;
-    align-items: middle;
+    align-items: center;
+    vertical-align: middle;
     line-height: 1.5rem;
   }
 
@@ -160,18 +190,43 @@ export const Modal = ({
   onClose,
   children,
   onSubmit,
-}: ModalProps): ReactElement => (
-  <ModalContainer
-    className="minesweeper-modal"
-    width={width}
-    onSubmit={onSubmit && onSubmit}
-  >
-    <header>
-      <h2>{title}</h2>
-      <button onClick={onClose} aria-label="close">
-        ×
-      </button>
-    </header>
-    {children}
-  </ModalContainer>
-);
+}: ModalProps): ReactElement => {
+  // useLayoutEffect(() => {
+  //   const handleEscape = (e: KeyboardEvent) => {
+  //     if (e.key === "Escape") {
+  //       onClose();
+  //     }
+  //   };
+
+  //   const handleClickOutside = (e: MouseEvent) => {
+  //     const modal = document.querySelector(".minesweeper-modal");
+  //     if (modal && !modal.contains(e.target as Node)) {
+  //       onClose();
+  //     }
+  //   };
+
+  //   document.addEventListener("keydown", handleEscape, false);
+  //   document.addEventListener("click", handleClickOutside, false);
+
+  //   return () => {
+  //     document.removeEventListener("keydown", handleEscape, false);
+  //     document.removeEventListener("click", handleClickOutside, false);
+  //   };
+  // }, []);
+
+  return (
+    <ModalContainer
+      className="minesweeper-modal"
+      width={width}
+      onSubmit={onSubmit && onSubmit}
+    >
+      <header>
+        <h2>{title}</h2>
+        <button onClick={onClose} aria-label="close">
+          ×
+        </button>
+      </header>
+      {children}
+    </ModalContainer>
+  );
+};

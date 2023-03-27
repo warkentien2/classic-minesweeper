@@ -5,8 +5,8 @@ type HTMLFormFieldElement =
   | HTMLSelectElement
   | HTMLTextAreaElement;
 
-export const useInput = (initialValue: string | number | boolean) => {
-  const [state, setState] = useState<string | number | boolean>(initialValue);
+export const useInput = <T>(initialValue: T) => {
+  const [state, setState] = useState<T>(initialValue);
 
   const onChange: React.ChangeEventHandler<HTMLFormFieldElement> = (
     e: React.ChangeEvent<HTMLFormFieldElement>
@@ -14,11 +14,11 @@ export const useInput = (initialValue: string | number | boolean) => {
     const value = e.target.value;
 
     if (!isNaN(Number(value))) {
-      setState(parseInt(value));
+      setState(parseInt(value) as number as T);
     } else if (value === "boolean") {
-      setState(!state);
+      setState(!state as boolean as T);
     } else {
-      setState(value);
+      setState(value as T);
     }
   };
 

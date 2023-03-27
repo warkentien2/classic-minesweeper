@@ -32,10 +32,12 @@ export const GameSettings = ({ onClose }: GameSettingsProps): ReactElement => {
     <Modal title="Game" onClose={onClose} width={254} onSubmit={handleSubmit}>
       <table className="tr-reverse-zebra">
         <thead className="flex-row-center">
-          <td tabIndex={-1} className="width-50"></td>
-          <td className="width-16">Height</td>
-          <td className="width-16">Width</td>
-          <td className="width-16">Mines</td>
+          <tr>
+            <th tabIndex={-1} className="width-50"></th>
+            <th className="width-16">Height</th>
+            <th className="width-16">Width</th>
+            <th className="width-16">Mines</th>
+          </tr>
         </thead>
         <tbody className="tr-base">
           <tr className="flex-row-center">
@@ -93,24 +95,26 @@ export const GameSettings = ({ onClose }: GameSettingsProps): ReactElement => {
             <td className="width-16">99</td>
           </tr>
         </tbody>
-        <tr className="flex-row-center">
-          <td className="width-50">
-            <button type="submit">New Game</button>
-          </td>
-          <td>
-            <label>
-              <input
-                type="checkbox"
-                id="shouldShowQuestionMark"
-                name="shouldShowQuestionMark"
-                value={shouldShowQuestionMarks.toString()}
-                checked={shouldShowQuestionMarks}
-                onChange={onChangeShouldUseQuestionMark}
-              />
-              Marks (?)
-            </label>
-          </td>
-        </tr>
+        <tfoot>
+          <tr className="flex-row-center">
+            <td className="width-50">
+              <button type="submit">New Game</button>
+            </td>
+            <td>
+              <label>
+                <input
+                  type="checkbox"
+                  id="shouldShowQuestionMark"
+                  name="shouldShowQuestionMark"
+                  value={shouldShowQuestionMarks.toString()}
+                  checked={Boolean(shouldShowQuestionMarks)}
+                  onChange={onChangeShouldUseQuestionMark}
+                />
+                Marks (?)
+              </label>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </Modal>
   );
