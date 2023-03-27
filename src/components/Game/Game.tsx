@@ -23,6 +23,7 @@ const GameContainer = styled.section<GameContainerProps>`
   position: relative;
   display: flex;
   width: 100%;
+  padding: 20px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: ${({ position }) =>

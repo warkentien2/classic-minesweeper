@@ -21,12 +21,14 @@ body {
   min-width: 320px;
   min-height: 100vh;
   min-height: 100dvh; /* if supported */
+  width: 100%;
+  width: fit-content;
 }
 
 #root {
   display: inherit;
-  width: 100%;
-  margin: 20px;
+  min-width: 100%;
+  flex-direction: column;
 }
 
 @media (prefers-color-scheme: light) {

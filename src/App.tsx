@@ -15,7 +15,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <label>
+      <label style={{ display: "block", width: "100vw" }}>
         Dark Mode
         <input
           type="checkbox"
