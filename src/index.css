@@ -18,7 +18,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   min-height: 100dvh; /* if supported */
@@ -27,6 +26,7 @@ body {
 #root {
   display: inherit;
   width: 100%;
+  margin: 20px;
 }
 
 @media (prefers-color-scheme: light) {
