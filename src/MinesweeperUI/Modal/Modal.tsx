@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import type { ReactElement } from "react";
 import styled, { css } from "styled-components";
 
@@ -191,28 +191,36 @@ export const Modal = ({
   children,
   onSubmit,
 }: ModalProps): ReactElement => {
-  // useLayoutEffect(() => {
-  //   const handleEscape = (e: KeyboardEvent) => {
-  //     if (e.key === "Escape") {
-  //       onClose();
-  //     }
-  //   };
+  const listenersRef = useRef(false);
 
-  //   const handleClickOutside = (e: MouseEvent) => {
-  //     const modal = document.querySelector(".minesweeper-modal");
-  //     if (modal && !modal.contains(e.target as Node)) {
-  //       onClose();
-  //     }
-  //   };
+  const handleEscape = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      onClose();
+    }
+  };
 
-  //   document.addEventListener("keydown", handleEscape, false);
-  //   document.addEventListener("click", handleClickOutside, false);
+  const handleClickOutside = (e: MouseEvent) => {
+    const modal = document.querySelector(".minesweeper-modal");
+    const menu = document.querySelector(".minesweeper-menu");
+    if (
+      !modal?.contains(e.target as Node) &&
+      !menu?.contains(e.target as Node)
+    ) {
+      onClose();
+    }
+  };
 
-  //   return () => {
-  //     document.removeEventListener("keydown", handleEscape, false);
-  //     document.removeEventListener("click", handleClickOutside, false);
-  //   };
-  // }, []);
+  useLayoutEffect(() => {
+    if (listenersRef.current) return;
+
+    document.addEventListener("keydown", handleEscape, false);
+    document.addEventListener("click", handleClickOutside, false);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape, false);
+      document.removeEventListener("click", handleClickOutside, false);
+    };
+  }, []);
 
   return (
     <ModalContainer
