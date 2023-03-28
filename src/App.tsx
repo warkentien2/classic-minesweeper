@@ -12,20 +12,15 @@ const inferThemeFromCSS = (): DefaultTheme =>
 function App() {
   const [theme, setTheme] = useState(inferThemeFromCSS());
 
+  const toggleTheme = () => {
+    theme === lightTheme ? setTheme(darkTheme) : setTheme(lightTheme);
+    return;
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <label style={{ display: "block", width: "100vw" }}>
-        Dark Mode
-        <input
-          type="checkbox"
-          onChange={() =>
-            setTheme(theme === lightTheme ? darkTheme : lightTheme)
-          }
-          checked={theme === darkTheme}
-        />
-      </label>
-      <Game />
+      <Game toggleTheme={toggleTheme} />
     </ThemeProvider>
   );
 }
