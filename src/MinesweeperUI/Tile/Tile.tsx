@@ -99,8 +99,9 @@ export const Tile = ({
   pushDeeper = false,
   noActiveUI = false,
 }: TileProps): ReactElement => {
-  const [tileState, setTileState] =
-    useState<TileProps["tileValue"]>(tileCoverValue);
+  const [tileState, setTileState] = useState<TileProps["tileValue"]>(
+    clicked ? tileValue : tileCoverValue
+  );
   const [isClicked, setIsClicked] = useState(clicked);
 
   const handleLeftClick = () => {
