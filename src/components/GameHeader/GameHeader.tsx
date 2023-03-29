@@ -3,6 +3,7 @@ import type { ReactElement } from "react";
 import styled from "styled-components";
 
 import { Counter, Tile } from "../../MinesweeperUI";
+import { tileValues } from "../../MinesweeperUI/Tile/constants";
 
 export interface GameHeaderProps {}
 
@@ -23,11 +24,11 @@ const Header = styled.header<GameHeaderProps>`
 
   .minesweeper-tile {
     margin: 3px 0;
-    border: 2px solid;
-    border-color: var(--tile-bg-highlight) var(--tile-bg-shadow)
-      var(--tile-bg-shadow) var(--tile-bg-highlight);
-    box-shadow: var(--tile-shadow);
     outline: 1px solid var(--tile-bg-shadow);
+  }
+
+  .mousedown-on-tile & .minesweeper-tile:not(:active) > *:first-child {
+    background-position: ${tileValues["surprised"].position};
   }
 `;
 
@@ -35,7 +36,7 @@ export const GameHeader = ({}: GameHeaderProps): ReactElement => {
   return (
     <Header className="minesweeper-header">
       <Counter />
-      <Tile value="happy" pushDeeper />
+      <Tile tileCoverValue="happy" tileValue="happy" pushDeeper noActiveUI />
       <Counter />
     </Header>
   );

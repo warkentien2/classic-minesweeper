@@ -11,7 +11,7 @@ export interface BoardContainerProps {
 }
 
 export interface BoardProps extends BoardContainerProps {
-  tiles: TileProps["value"][];
+  tiles: TileProps["tileValue"][];
 }
 
 const BoardContainer = styled.div<BoardContainerProps>`
@@ -43,7 +43,7 @@ export const Board = ({
   return (
     <BoardContainer className="minesweeper-board" size={size}>
       {tiles.map((tile, i) => (
-        <Tile key={i} value={tile} />
+        <Tile key={i} tileValue={tile} />
       ))}
     </BoardContainer>
   );
