@@ -22,7 +22,6 @@ body {
   min-height: 100vh;
   min-height: 100dvh; /* if supported */
   width: 100%;
-  width: fit-content;
 }
 
 #root {

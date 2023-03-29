@@ -3,6 +3,7 @@ import type { DefaultTheme } from "styled-components";
 export const lightTheme: DefaultTheme = {
   colors: {
     background: {
+      page: "#FFF",
       primary: "#BDBDBD",
       secondary: "#EEE",
       tertiary: "#06f",
@@ -24,6 +25,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   colors: {
     background: {
+      page: "#000",
       primary: "#7E7E7E",
       secondary: "#BBBBBB",
       tertiary: "#184292",

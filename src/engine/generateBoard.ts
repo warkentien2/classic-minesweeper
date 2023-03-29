@@ -1,4 +1,4 @@
-import { scramble } from "../utils";
+import { inBounds, scramble } from "../utils";
 import { config } from "./gameConfig";
 import { TileValueType } from "../types/gameTypes";
 
@@ -47,14 +47,14 @@ const placeAdjacentNumbers = (
     const col = i % cols;
 
     const adjacentTiles = [
-      board[(row - 1) * cols + (col - 1)],
-      board[(row - 1) * cols + col],
-      board[(row - 1) * cols + (col + 1)],
-      board[row * cols + (col - 1)],
-      board[row * cols + (col + 1)],
-      board[(row + 1) * cols + (col - 1)],
-      board[(row + 1) * cols + col],
-      board[(row + 1) * cols + (col + 1)],
+      board[inBounds(row - 1, rows) * cols + inBounds(col - 1, cols)],
+      board[inBounds(row - 1, rows) * cols + col],
+      board[inBounds(row - 1, rows) * cols + inBounds(col + 1, cols)],
+      board[row * cols + inBounds(col - 1, cols)],
+      board[row * cols + inBounds(col + 1, cols)],
+      board[inBounds(row + 1, rows) * cols + inBounds(col - 1, cols)],
+      board[inBounds(row + 1, rows) * cols + col],
+      board[inBounds(row + 1, rows) * cols + inBounds(col + 1, cols)],
     ];
 
     const adjacentMines = adjacentTiles.filter(

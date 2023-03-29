@@ -4,6 +4,7 @@ declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       background: {
+        page: string;
         primary: string;
         secondary: string;
         tertiary: string;
@@ -36,5 +37,15 @@ export const GlobalStyles = createGlobalStyle`
     font-size: ${({ theme }) => theme.typography.fontSize};
     font-family: ${({ theme }) => theme.typography.fontFamily};
     line-height: 1.5;
+  }
+
+  .dark-mode-aware-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.background.page};
   }
 `;

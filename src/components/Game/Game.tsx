@@ -1,4 +1,5 @@
-import React, { useContext, useLayoutEffect, useRef } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import type { ReactElement } from "react";
 import styled, { css } from "styled-components";
 
@@ -14,6 +15,7 @@ import {
 } from "../../Components";
 import { GameContext } from "../../engine";
 import type { GameStateType } from "../../engine/types";
+import { useFirstRender } from "../../hooks";
 
 interface GameContainerProps {
   position: string;
@@ -24,6 +26,7 @@ const GameContainer = styled.section<GameContainerProps>`
   display: flex;
   width: 100%;
   padding: 20px;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: flex-start;
   align-items: ${({ position }) =>
@@ -113,7 +116,11 @@ const renderSettings = (
   }
 };
 
-export const Game = (): ReactElement => {
+export interface GameProps {
+  toggleTheme: () => void;
+}
+
+export const Game = ({ toggleTheme }: GameProps): ReactElement => {
   const [settings, setSettings] = React.useState("");
   const [gameStore, setGameStore] = React.useState<GameStateType>(
     useContext(GameContext).gameStore
@@ -123,6 +130,7 @@ export const Game = (): ReactElement => {
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
+  const firstRender = useFirstRender();
 
   const onClose = () => setSettings("");
 
@@ -140,8 +148,18 @@ export const Game = (): ReactElement => {
     }
   }, [gameRef, gameStore.difficulty, gameStore.zoom]);
 
+  useEffect(() => {
+    if (!firstRender) {
+      toggleTheme();
+    }
+  }, [gameStore.nightMode]);
+
   return (
     <GameContext.Provider value={{ gameStore, setGameStore }}>
+      {createPortal(
+        <div className="dark-mode-aware-backdrop" />,
+        document.body
+      )}
       <GameContainer className="minesweeper-game" position={gameStore.position}>
         <GameMenu onOpen={onOpen} />
         <GameBodyContainer
