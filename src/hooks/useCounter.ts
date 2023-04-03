@@ -7,7 +7,7 @@ interface CounterSettings {
   autoPlay?: boolean;
 }
 
-const useCounter = ({
+export const useCounter = ({
   initialValue,
   autoPlay = true,
 }: CounterSettings): [
@@ -54,5 +54,3 @@ const useCounter = ({
 
   return [count, pause, reset, play, status];
 };
-
-export default useCounter;

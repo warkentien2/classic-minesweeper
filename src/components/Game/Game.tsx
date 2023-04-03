@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import type { ReactElement } from "react";
 import styled, { css } from "styled-components";
@@ -15,7 +21,7 @@ import {
 } from "../../Components";
 import { GameContext } from "../../engine";
 import type { GameStateType } from "../../engine/types";
-import { useFirstRender } from "../../hooks";
+import { useFirstRender, useCounter } from "../../hooks";
 
 interface GameContainerProps {
   position: string;
@@ -120,17 +126,35 @@ export interface GameProps {
   toggleTheme: () => void;
 }
 
+const getNumberOfBombs = (difficulty: string) => {
+  switch (difficulty) {
+    case "beginner":
+      return 10;
+    case "intermediate":
+      return 40;
+    case "expert":
+      return 99;
+    default:
+      return 10;
+  }
+};
+
 export const Game = ({ toggleTheme }: GameProps): ReactElement => {
   const [settings, setSettings] = React.useState("");
   const [gameStore, setGameStore] = React.useState<GameStateType>(
     useContext(GameContext).gameStore
   );
+  const firstRender = useFirstRender();
   const gameRef = useRef<HTMLDivElement>(null);
   const [gameDimension, setGameDimension] = React.useState<{
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
-  const firstRender = useFirstRender();
+  const [clockValue, pauseClock, resetClock, playClock, clockStatus] =
+    useCounter({ initialValue: 0, autoPlay: true });
+  const [bombsLeft, setBombsLeft] = useState(
+    getNumberOfBombs(gameStore.difficulty)
+  );
 
   const onClose = () => setSettings("");
 
@@ -169,7 +193,7 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
           position={gameStore.position}
         >
           <ZoomTarget ref={gameRef}>
-            <GameHeader />
+            <GameHeader clockValue={clockValue} bombCounterValue={bombsLeft} />
             <div className="minesweeper-body">
               {settings && renderSettings(settings, onClose)}
               <Board size={gameStore.difficulty} tiles={gameStore.board} />

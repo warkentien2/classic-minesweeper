@@ -11,4 +11,7 @@ export default {
 const Template: Story<GameHeaderProps> = (args) => <GameHeader {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  bombCounterValue: 99,
+  clockValue: 999,
+};

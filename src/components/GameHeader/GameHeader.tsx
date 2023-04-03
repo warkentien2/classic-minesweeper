@@ -5,9 +5,12 @@ import styled from "styled-components";
 import { Counter, Tile } from "../../MinesweeperUI";
 import { tileValues } from "../../MinesweeperUI/Tile/constants";
 
-export interface GameHeaderProps {}
+export interface GameHeaderProps {
+  bombCounterValue: number;
+  clockValue: number;
+}
 
-const Header = styled.header<GameHeaderProps>`
+const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,12 +35,15 @@ const Header = styled.header<GameHeaderProps>`
   }
 `;
 
-export const GameHeader = ({}: GameHeaderProps): ReactElement => {
+export const GameHeader = ({
+  bombCounterValue,
+  clockValue,
+}: GameHeaderProps): ReactElement => {
   return (
     <Header className="minesweeper-header">
-      <Counter />
+      <Counter value={bombCounterValue} />
       <Tile tileCoverValue="happy" tileValue="happy" pushDeeper noActiveUI />
-      <Counter />
+      <Counter value={clockValue} />
     </Header>
   );
 };
