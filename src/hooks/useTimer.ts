@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 type CounterStatus = "paused" | "playing";
 
@@ -7,7 +7,7 @@ interface CounterSettings {
   autoPlay?: boolean;
 }
 
-export const useCounter = ({
+export const useTimer = ({
   initialValue,
   autoPlay = true,
 }: CounterSettings): [
@@ -27,22 +27,22 @@ export const useCounter = ({
     }
 
     return () => clearInterval(intervalId!);
-  }, []);
+  }, [autoPlay, intervalId]);
 
-  const pause = () => {
+  const pause = useCallback(() => {
     if (intervalId) {
       clearInterval(intervalId);
       setIntervalId(null);
       setStatus("paused");
     }
-  };
+  }, [intervalId]);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     pause();
     setCount(initialValue);
-  };
+  }, [initialValue, pause]);
 
-  const play = () => {
+  const play = useCallback(() => {
     if (!intervalId) {
       const id = setInterval(() => {
         setCount((count) => count + 1);
@@ -50,7 +50,7 @@ export const useCounter = ({
       setIntervalId(id);
       setStatus("playing");
     }
-  };
+  }, [intervalId]);
 
   return [count, pause, reset, play, status];
 };

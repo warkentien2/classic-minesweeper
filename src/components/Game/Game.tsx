@@ -21,7 +21,7 @@ import {
 } from "../../Components";
 import { GameContext } from "../../engine";
 import type { GameStateType } from "../../engine/types";
-import { useFirstRender, useCounter } from "../../hooks";
+import { useFirstRender, useTimer } from "../../hooks";
 
 interface GameContainerProps {
   position: string;
@@ -150,8 +150,9 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
-  const [clockValue, pauseClock, resetClock, playClock, clockStatus] =
-    useCounter({ initialValue: 0, autoPlay: true });
+  const [clockValue, pauseTimer, resetClock, playClock, clockStatus] = useTimer(
+    { initialValue: 0, autoPlay: true }
+  );
   const [bombsLeft, setBombsLeft] = useState(
     getNumberOfBombs(gameStore.difficulty)
   );
