@@ -1,56 +1,66 @@
-import { useCallback, useState, useEffect } from "react";
+import { useState, useRef } from "react";
 
-type CounterStatus = "paused" | "playing";
+type TimerState = "running" | "paused";
 
-interface CounterSettings {
-  initialValue: number;
-  autoPlay?: boolean;
+interface Timer {
+  value: number;
+  state: TimerState;
+  play: () => void;
+  pause: () => void;
+  reset: () => void;
 }
 
-export const useTimer = ({
-  initialValue,
-  autoPlay = true,
-}: CounterSettings): [
-  number,
-  () => void,
-  () => void,
-  () => void,
-  CounterStatus
-] => {
-  const [count, setCount] = useState<number>(initialValue);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
-  const [status, setStatus] = useState<CounterStatus>("playing");
+export const useTimer = (initialValue: number): Timer => {
+  const [startTime, setStartTime] = useState<number>(Date.now());
+  const [elapsedTime, setElapsedTime] = useState<number>(initialValue);
+  const [state, setState] = useState<TimerState>("paused");
+  const requestRef = useRef<number>();
 
-  useEffect(() => {
-    if (autoPlay) {
-      play();
+  const updateTimer = () => {
+    const now = Date.now();
+    setElapsedTime(now - startTime + initialValue);
+    requestRef.current = requestAnimationFrame(updateTimer);
+  };
+
+  const startTimer = () => {
+    setState("running");
+    setStartTime(Date.now());
+    requestRef.current = requestAnimationFrame(updateTimer);
+  };
+
+  const pauseTimer = () => {
+    setState("paused");
+    cancelAnimationFrame(requestRef.current!);
+  };
+
+  const resetTimer = () => {
+    setElapsedTime(initialValue);
+    setStartTime(Date.now());
+    cancelAnimationFrame(requestRef.current!);
+    setState("paused");
+  };
+
+  const play = () => {
+    if (state === "paused") {
+      startTimer();
     }
+  };
 
-    return () => clearInterval(intervalId!);
-  }, [autoPlay, intervalId]);
-
-  const pause = useCallback(() => {
-    if (intervalId) {
-      clearInterval(intervalId);
-      setIntervalId(null);
-      setStatus("paused");
+  const pause = () => {
+    if (state === "running") {
+      pauseTimer();
     }
-  }, [intervalId]);
+  };
 
-  const reset = useCallback(() => {
-    pause();
-    setCount(initialValue);
-  }, [initialValue, pause]);
+  const reset = () => {
+    resetTimer();
+  };
 
-  const play = useCallback(() => {
-    if (!intervalId) {
-      const id = setInterval(() => {
-        setCount((count) => count + 1);
-      }, 1000);
-      setIntervalId(id);
-      setStatus("playing");
-    }
-  }, [intervalId]);
-
-  return [count, pause, reset, play, status];
+  return {
+    value: Math.floor(elapsedTime / 1000),
+    state,
+    play,
+    pause,
+    reset,
+  };
 };

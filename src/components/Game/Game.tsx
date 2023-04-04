@@ -150,9 +150,7 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
-  const [clockValue, pauseTimer, resetClock, playClock, clockStatus] = useTimer(
-    { initialValue: 0, autoPlay: true }
-  );
+  const timer = useTimer(0);
   const [bombsLeft, setBombsLeft] = useState(
     getNumberOfBombs(gameStore.difficulty)
   );
@@ -179,6 +177,11 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
     }
   }, [gameStore.nightMode]);
 
+  useEffect(() => {
+    // timer should only start on first tile click
+    timer.play();
+  }, []);
+
   return (
     <GameContext.Provider value={{ gameStore, setGameStore }}>
       {createPortal(
@@ -194,7 +197,7 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
           position={gameStore.position}
         >
           <ZoomTarget ref={gameRef}>
-            <GameHeader clockValue={clockValue} bombCounterValue={bombsLeft} />
+            <GameHeader clockValue={timer.value} bombCounterValue={bombsLeft} />
             <div className="minesweeper-body">
               {settings && renderSettings(settings, onClose)}
               <Board size={gameStore.difficulty} tiles={gameStore.board} />
