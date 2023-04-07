@@ -4,14 +4,17 @@ import styled from "styled-components";
 
 import { boardSize } from "./constants";
 import { Tile } from "../../MinesweeperUI";
-import type { TileProps } from "../../MinesweeperUI/types";
+import type { TileValueType } from "../../types/gameTypes";
+import { inBounds } from "../../utils";
+import { config } from "../../engine/gameConfig";
 
 export interface BoardContainerProps {
   size: keyof typeof boardSize;
 }
 
 export interface BoardProps extends BoardContainerProps {
-  tiles: TileProps["tileValue"][];
+  tiles: TileValueType[];
+  updateBoard: (board: TileValueType[]) => void;
 }
 
 const BoardContainer = styled.div<BoardContainerProps>`
@@ -36,14 +39,88 @@ const BoardContainer = styled.div<BoardContainerProps>`
   }
 `;
 
+const handleBlankTileClick = (
+  rows: number,
+  cols: number,
+  tiles: TileValueType[],
+  tileIndex: number,
+  stagger: number
+): TileValueType[] => {
+  const row = Math.floor(tileIndex / cols);
+  const col = tileIndex % cols;
+  const validAdjacentIndexes = [
+    inBounds(row - 1, rows) * cols + inBounds(col - 1, cols),
+    inBounds(row - 1, rows) * cols + col,
+    inBounds(row - 1, rows) * cols + inBounds(col + 1, cols),
+    row * cols + inBounds(col - 1, cols),
+    row * cols + inBounds(col + 1, cols),
+    inBounds(row + 1, rows) * cols + inBounds(col - 1, cols),
+    inBounds(row + 1, rows) * cols + col,
+    inBounds(row + 1, rows) * cols + inBounds(col + 1, cols),
+  ].filter((val) => val >= 0);
+
+  tiles[tileIndex].clicked = true;
+  tiles[tileIndex].stagger = stagger;
+
+  if (tiles[tileIndex].value === "blank") {
+    const adjacentBlankIndexes: number[] = [];
+
+    validAdjacentIndexes.forEach((adjacentIndex) => {
+      if (tiles[adjacentIndex].clicked === false) {
+        if (tiles[adjacentIndex].value === "blank") {
+          adjacentBlankIndexes.push(adjacentIndex);
+        } else {
+          tiles[adjacentIndex].clicked = true;
+          tiles[adjacentIndex].stagger = stagger + 1;
+        }
+      }
+    });
+
+    adjacentBlankIndexes.forEach((adjacentIndex) => {
+      tiles = handleBlankTileClick(
+        rows,
+        cols,
+        tiles,
+        adjacentIndex,
+        stagger + 1
+      );
+    });
+  }
+
+  return tiles;
+};
+
 export const Board = ({
   size = "beginner",
-  tiles,
+  tiles: boardTiles,
+  updateBoard,
 }: BoardProps): ReactElement => {
+  const { rows, cols } = config.difficulty[size];
+
+  const handleUpdateBoard = (tileIndex: number) => {
+    const tiles: TileValueType[] = JSON.parse(JSON.stringify(boardTiles));
+    const newBoard: TileValueType[] = handleBlankTileClick(
+      rows,
+      cols,
+      tiles,
+      tileIndex,
+      0
+    );
+    updateBoard(newBoard);
+  };
+
   return (
     <BoardContainer className="minesweeper-board" size={size}>
-      {tiles.map((tile, i) => (
-        <Tile key={i} tileValue={tile} />
+      {boardTiles.map((tile, i) => (
+        <Tile
+          key={i}
+          tileValue={tile.value}
+          tileStagger={tile.stagger}
+          onClick={
+            tile.value === "blank" ? () => handleUpdateBoard(i) : undefined
+          }
+          {...(tile.clicked ? { clicked: true } : {})}
+        />
       ))}
     </BoardContainer>
   );

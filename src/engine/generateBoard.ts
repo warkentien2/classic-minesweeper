@@ -2,7 +2,7 @@ import { inBounds, scramble } from "../utils";
 import { config } from "./gameConfig";
 import { TileValueType } from "../types/gameTypes";
 
-const numberToWord = (num: number): TileValueType => {
+const numberToWord = (num: number): TileValueType["value"] => {
   switch (num) {
     case 1:
       return "one";
@@ -25,7 +25,7 @@ const numberToWord = (num: number): TileValueType => {
 
 const createBlankBoardWithBombs = (
   difficulty: "beginner" | "intermediate" | "expert"
-): TileValueType[] => {
+): TileValueType["value"][] => {
   const { rows, cols, mines } = config.difficulty[difficulty];
 
   return scramble(
@@ -35,12 +35,12 @@ const createBlankBoardWithBombs = (
 };
 
 const placeAdjacentNumbers = (
-  board: TileValueType[],
+  board: TileValueType["value"][],
   difficulty: "beginner" | "intermediate" | "expert"
-): TileValueType[] => {
+): TileValueType["value"][] => {
   const { rows, cols } = config.difficulty[difficulty];
 
-  return board.map((tile, i): TileValueType => {
+  return board.map((tile, i): TileValueType["value"] => {
     if (tile === "mine") return "mine";
 
     const row = Math.floor(i / cols);
@@ -69,5 +69,9 @@ export const generateBoard = (
   difficulty: "beginner" | "intermediate" | "expert"
 ): TileValueType[] => {
   const board = createBlankBoardWithBombs(difficulty);
-  return placeAdjacentNumbers(board, difficulty);
+  return placeAdjacentNumbers(board, difficulty).map((value) => ({
+    value,
+    stagger: 0,
+    clicked: false,
+  }));
 };

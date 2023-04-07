@@ -22,6 +22,7 @@ import {
 import { GameContext } from "../../engine";
 import type { GameStateType } from "../../engine/types";
 import { useFirstRender, useTimer } from "../../hooks";
+import type { TileValueType } from "../../types/gameTypes";
 
 interface GameContainerProps {
   position: string;
@@ -159,6 +160,13 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
 
   const onOpen = (settings: string) => setSettings(settings);
 
+  const updateBoard = (board: TileValueType[]): void => {
+    setGameStore((prevState) => ({
+      ...prevState,
+      board,
+    }));
+  };
+
   // only runs once per board size (difficulty)
   useLayoutEffect(() => {
     const game = gameRef.current;
@@ -200,7 +208,11 @@ export const Game = ({ toggleTheme }: GameProps): ReactElement => {
             <GameHeader clockValue={timer.value} bombCounterValue={bombsLeft} />
             <div className="minesweeper-body">
               {settings && renderSettings(settings, onClose)}
-              <Board size={gameStore.difficulty} tiles={gameStore.board} />
+              <Board
+                size={gameStore.difficulty}
+                tiles={gameStore.board}
+                updateBoard={updateBoard}
+              />
             </div>
           </ZoomTarget>
         </GameBodyContainer>
