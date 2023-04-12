@@ -17,6 +17,8 @@ export interface BoardProps extends BoardContainerProps {
   updateBoard: (board: TileValueType[]) => void;
 }
 
+let initialTileIndex = 0;
+
 const BoardContainer = styled.div<BoardContainerProps>`
   position: relative;
   display: inline-grid;
@@ -39,12 +41,23 @@ const BoardContainer = styled.div<BoardContainerProps>`
   }
 `;
 
+const calculateStaggerDistance = (cols: number, tileIndex: number): number => {
+  const initialRow = Math.floor(initialTileIndex / cols);
+  const initialCol = initialTileIndex % cols;
+  const row = Math.floor(tileIndex / cols);
+  const col = tileIndex % cols;
+
+  const rowDistance = Math.abs(initialRow - row);
+  const colDistance = Math.abs(initialCol - col);
+
+  return Math.max(rowDistance, colDistance);
+};
+
 const handleBlankTileClick = (
   rows: number,
   cols: number,
   tiles: TileValueType[],
-  tileIndex: number,
-  stagger: number
+  tileIndex: number
 ): TileValueType[] => {
   const row = Math.floor(tileIndex / cols);
   const col = tileIndex % cols;
@@ -60,7 +73,6 @@ const handleBlankTileClick = (
   ].filter((val) => val >= 0);
 
   tiles[tileIndex].clicked = true;
-  tiles[tileIndex].stagger = stagger;
 
   if (tiles[tileIndex].value === "blank") {
     const adjacentBlankIndexes: number[] = [];
@@ -71,19 +83,17 @@ const handleBlankTileClick = (
           adjacentBlankIndexes.push(adjacentIndex);
         } else {
           tiles[adjacentIndex].clicked = true;
-          tiles[adjacentIndex].stagger = stagger + 1;
         }
+
+        tiles[adjacentIndex].stagger = calculateStaggerDistance(
+          cols,
+          adjacentIndex
+        );
       }
     });
 
     adjacentBlankIndexes.forEach((adjacentIndex) => {
-      tiles = handleBlankTileClick(
-        rows,
-        cols,
-        tiles,
-        adjacentIndex,
-        stagger + 1
-      );
+      tiles = handleBlankTileClick(rows, cols, tiles, adjacentIndex);
     });
   }
 
@@ -99,12 +109,12 @@ export const Board = ({
 
   const handleUpdateBoard = (tileIndex: number) => {
     const tiles: TileValueType[] = JSON.parse(JSON.stringify(boardTiles));
+    initialTileIndex = tileIndex;
     const newBoard: TileValueType[] = handleBlankTileClick(
       rows,
       cols,
       tiles,
-      tileIndex,
-      0
+      tileIndex
     );
     updateBoard(newBoard);
   };

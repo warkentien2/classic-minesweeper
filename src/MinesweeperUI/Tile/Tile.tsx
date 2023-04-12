@@ -103,16 +103,6 @@ export interface TileProps {
   noActiveUI?: boolean;
 }
 
-const Stagger = styled.p`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  color: black;
-  font-weight: bolder;
-  margin: 0 0 0 4px;
-`;
-
 export const Tile = ({
   tileCoverValue = "blank",
   tileValue = "blank",
@@ -127,7 +117,7 @@ export const Tile = ({
     clicked ? tileValue : tileCoverValue
   );
   const [isClicked, setIsClicked] = useState(clicked);
-  const staggerInterval = 0.167; // 60 fps
+  const staggerInterval = 0.0525; // 180 fps
 
   React.useLayoutEffect(() => {
     if (clicked) {
@@ -189,7 +179,6 @@ export const Tile = ({
         tileStagger={tileStagger * staggerInterval}
       />
       <TileShadow tabIndex={-1} />
-      <Stagger>{tileStagger}</Stagger>
     </TileWrapper>
   );
 };
